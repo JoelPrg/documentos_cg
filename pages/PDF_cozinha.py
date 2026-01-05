@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from utilidades import dia_semana
+from utilidades import dia_semana, limpar_nome_arquivo
 from dfs_iniciais import dataframes
 from preenchedor import preencher_modelo
 
@@ -52,10 +52,12 @@ modelo = st.radio("Escolha o modelo", ["Com observações", "Sem observações"]
 
 # Gerando o documento
 if modelo:
+    nome_cliente_limpo = limpar_nome_arquivo(dados["nome"])
+
     documento_path = preencher_modelo(
         dados=dados,
         nome_modelo=f"{modelo}.docx",
-        nome_saida=f"{dados['nome']} - {modelo}.docx"
+        nome_saida=f"{nome_cliente_limpo} - {modelo}.docx"
     )
 
     # Botão para baixar
