@@ -16,7 +16,7 @@ def carregar_dataframes():
     # No secrets.toml, você deve ter:
     # [general]
     # GOOGLE_CREDENTIALS_JSON = """{ ...JSON do service account... }"""
-    credenciais_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS_JSON"])
+    credenciais_dict = st.secrets["GOOGLE_CREDENTIALS_JSON"]
     credenciais = ServiceAccountCredentials.from_json_keyfile_dict(credenciais_dict, escopo)
 
     # --- Conexão com Google Sheets ---
