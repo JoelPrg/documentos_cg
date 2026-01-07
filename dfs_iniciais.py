@@ -39,6 +39,3 @@ def carregar_dataframes():
         dataframes[aba.lower()] = df
     
     return dataframes
-
-# --- Carrega os dataframes ao importar ---
-dataframes = carregar_dataframes()

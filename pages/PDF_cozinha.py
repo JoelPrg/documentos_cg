@@ -2,10 +2,26 @@ import streamlit as st
 import pandas as pd
 
 from utilidades import dia_semana, limpar_nome_arquivo
-from dfs_iniciais import dataframes
+from dados import obter_dataframes   # ✅ padrão correto
 from preenchedor import preencher_modelo
 
+st.title("Gerar PDF para a cozinha")
+
+# ------------------------------------
+# Botão de atualização forçada
+# ------------------------------------
+if st.button("🔄 Atualizar base de dados"):
+    st.cache_data.clear()
+    st.experimental_rerun()
+
+# ------------------------------------
+# Carregamento dos dados (cacheados)
+# ------------------------------------
+dataframes = obter_dataframes()
+
+# ------------------------------------
 # Preparação dos dados
+# ------------------------------------
 consolidado = pd.merge(
     dataframes["clientes"],
     dataframes["eventos"],
@@ -19,8 +35,9 @@ consolidado["evento"] = (
     + consolidado["Data"].astype(str)
 )
 
-st.title("Gerar PDF para a cozinha")
-
+# ------------------------------------
+# Interface
+# ------------------------------------
 evento_selecionado = st.selectbox(
     "Selecione o evento",
     options=consolidado["evento"].tolist()
@@ -34,6 +51,9 @@ if linha_df.empty:
 
 linha = linha_df.iloc[0]
 
+# ------------------------------------
+# Dados para o template
+# ------------------------------------
 dados = {
     "nome": linha["NOME"],
     "ocasiao": linha["ocasiao"],
@@ -48,9 +68,15 @@ dados = {
     "dia": dia_semana(linha["Data"]),
 }
 
-modelo = st.radio("Escolha o modelo", ["Com observações", "Sem observações"], index=None)
+modelo = st.radio(
+    "Escolha o modelo",
+    ["Com observações", "Sem observações"],
+    index=None
+)
 
-# Gerando o documento
+# ------------------------------------
+# Geração do documento
+# ------------------------------------
 if modelo:
     nome_cliente_limpo = limpar_nome_arquivo(dados["nome"])
 
@@ -60,7 +86,6 @@ if modelo:
         nome_saida=f"{nome_cliente_limpo} - {modelo}.docx"
     )
 
-    # Botão para baixar
     with open(documento_path, "rb") as file:
         st.download_button(
             label="Baixar documento",
