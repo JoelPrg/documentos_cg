@@ -12,7 +12,7 @@ st.title("Gerar PDF para a cozinha")
 # ------------------------------------
 if st.button("🔄 Atualizar base de dados"):
     st.cache_data.clear()
-    st.experimental_rerun()
+    st.rerun()
 
 # ------------------------------------
 # Carregamento dos dados (cacheados)
