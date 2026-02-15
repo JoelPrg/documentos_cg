@@ -2,26 +2,20 @@ import streamlit as st
 import pandas as pd
 
 from utilidades import dia_semana, limpar_nome_arquivo
-from dados import obter_dataframes   # ✅ padrão correto
+from dados import obter_dataframes
 from preenchedor import preencher_modelo
 
 st.title("Gerar PDF para a cozinha")
 
-# ------------------------------------
 # Botão de atualização forçada
-# ------------------------------------
 if st.button("🔄 Atualizar base de dados"):
     st.cache_data.clear()
     st.rerun()
 
-# ------------------------------------
 # Carregamento dos dados (cacheados)
-# ------------------------------------
 dataframes = obter_dataframes()
 
-# ------------------------------------
 # Preparação dos dados
-# ------------------------------------
 consolidado = pd.merge(
     dataframes["clientes"],
     dataframes["eventos"],

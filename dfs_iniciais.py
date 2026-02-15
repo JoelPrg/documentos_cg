@@ -24,7 +24,7 @@ def carregar_dataframes():
     planilha = cliente.open_by_key("1GXkH_2c_GTPUGlaFRQXDaKEH06o7RNnvoWOz5kw8jRE")
 
     # --- Abas que queremos carregar ---
-    abas = ["EVENTOS", "CLIENTES", "RECEBIMENTOS", "COLABORADORES"]
+    abas = ["EVENTOS", "CLIENTES", "RECEBIMENTOS", "COLABORADORES", "CONTAS_A_PAGAR", "CATEGORIAS"]
     dataframes = {}
 
     for aba in abas:

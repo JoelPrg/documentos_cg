@@ -1,6 +1,5 @@
 from docxtpl import DocxTemplate
 from pathlib import Path
-from datetime import datetime
 
 
 def preencher_modelo(
