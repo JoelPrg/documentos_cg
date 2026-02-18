@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-from utilidades import dia_semana, limpar_nome_arquivo
 from dados import obter_dataframes
 from preenchedores.escalas import gerar_docx_escalas
 
